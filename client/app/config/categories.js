@@ -31,6 +31,10 @@ const categories = [
     id: 8,
     name: "Panadería",
   },
+  {
+    id: 9,
+    name: "Adicionales",
+  },
 ];
 
 export default categories;
