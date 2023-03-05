@@ -9,13 +9,18 @@ import React, { useState } from "react";
 import colors from "../config/colors";
 import SPACING from "../config/SPACING";
 import categories from "../config/categories";
+import allProducts from "../config/coffees";
 
-const Categories = ({onChange}) => {
+const Categories = ({ onChange }) => {
   const [activeCategoryId, setActiveCategoryId] = useState(null);
+
+  const [products, setProducts] = useState(allProducts);
+
+  const [input, setInput] = useState("");
 
   const handlePress = (id) => {
     setActiveCategoryId(id);
-    onChange(id)
+    onChange(id);
   };
 
   return (
@@ -30,12 +35,15 @@ const Categories = ({onChange}) => {
           style={{ marginRight: SPACING * 2, alignItems: "center" }}>
           <Text
             style={[
-              { color: colors.secondary, fontSize: SPACING * 2 },
+              {
+                color: colors.secondary,
+                fontSize: SPACING * 2,
+              },
               activeCategoryId === item.id && { color: colors.primary },
             ]}>
             {item.name}
           </Text>
-          {activeCategoryId === item.id && (
+          {activeCategoryId === item.id ? (
             <View
               style={{
                 height: SPACING,
@@ -44,6 +52,8 @@ const Categories = ({onChange}) => {
                 borderRadius: SPACING / 2,
               }}
             />
+          ) : (
+            <></>
           )}
         </TouchableOpacity>
       )}

@@ -1,11 +1,10 @@
 import { StyleSheet, Text, View } from "react-native";
-import colors from "./app/config/colors";
-import HomeScreen from "./app/screens/HomeScreen";
+import MainStack from "./app/navigation/MainStack";
 
 export default function App() {
   return (
-    <View style={{ flex: 1, backgroundColor: colors.dark }}>
-      <HomeScreen/>
+    <View style={{ flex: 1 }}>
+      <MainStack/>
     </View>
   );
 }

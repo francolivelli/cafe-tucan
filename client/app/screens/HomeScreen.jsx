@@ -1,6 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
-  Dimensions,
   Image,
   SafeAreaView,
   ScrollView,
@@ -11,17 +10,38 @@ import {
 import SPACING from "../config/SPACING";
 import SearchField from "../components/SearchField";
 import Categories from "../components/Categories";
-import coffees from "../config/coffees";
-import { BlurView } from "expo-blur";
 import colors from "../config/colors";
-import { Ionicons } from "@expo/vector-icons";
+import Grid from "../components/Grid";
+import allProducts from "../config/coffees";
 
 const logo = require("../../assets/logo.png");
 
-const { width } = Dimensions.get("window");
-
 const HomeScreen = () => {
+  const [products, setProducts] = useState(allProducts);
+
   const [activeCategoryId, setActiveCategoryId] = useState(null);
+
+  const [input, setInput] = useState("");
+
+  const removeAccents = (str) => {
+    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  };
+
+  const getProducts = (t) => {
+    const filteredProducts = allProducts.filter((product) =>
+      removeAccents(product.name).toLowerCase().includes(t.toLowerCase())
+    );
+
+    if (filteredProducts.length > 0) {
+      setProducts(filteredProducts);
+      console.log("LOS PRODUCTOS FILTRADOS SON", filteredProducts);
+    }
+  };
+
+  useEffect(() => {
+    setActiveCategoryId(null);
+    input.length === 0 ? setProducts(allProducts) : getProducts(input);
+  }, [input]);
 
   return (
     <SafeAreaView style={{ marginHorizontal: SPACING }}>
@@ -30,121 +50,29 @@ const HomeScreen = () => {
           style={{
             padding: SPACING,
           }}></View>
-          <TouchableOpacity onPress={()=>setActiveCategoryId(null)}>
-        <View
-          style={{
-            width: "100%",
-            marginTop: SPACING,
-            marginVertical: SPACING,
-            height: SPACING * 14,
-            alignItems: "center",
-          }}>
-          <Image source={logo} style={{ width: "75%", height: "80%" }} />
-        </View>
+        <TouchableOpacity onPress={() => setActiveCategoryId(null)}>
+          <View
+            style={{
+              width: "100%",
+              marginTop: SPACING,
+              marginVertical: SPACING,
+              height: SPACING * 14,
+              alignItems: "center",
+            }}>
+            <Image source={logo} style={{ width: "75%", height: "80%" }} />
+          </View>
         </TouchableOpacity>
-        <SearchField />
-        <Categories onChange={(id) => setActiveCategoryId(id)} />
+        <SearchField onChange={(text) => setInput(text)} />
+        <Categories onChange={(id) => {setActiveCategoryId(id), setInput("")}} />
+        <Grid products={products} activeCategoryId={activeCategoryId} />
         <View
           style={{
-            flexDirection: "row",
-            flexWrap: "wrap",
-            justifyContent: "space-between",
+            alignItems: "center",
+            marginTop: SPACING,
           }}>
-          {coffees
-            .filter((coffee) => {
-              if (activeCategoryId === null) {
-                return true;
-              }
-              return coffee.categoryId === activeCategoryId;
-            })
-            .map((coffee) => (
-              <View
-                key={coffee.id}
-                style={{
-                  width: width / 2 - SPACING * 2,
-                  marginBottom: SPACING,
-                  borderRadius: SPACING * 2,
-                  overflow: "hidden",
-                }}>
-                <BlurView
-                  tint="dark"
-                  intensity={95}
-                  style={{
-                    padding: SPACING,
-                  }}>
-                  <TouchableOpacity
-                    style={{
-                      height: 150,
-                      width: "100%",
-                    }}>
-                    <Image
-                      source={coffee.image}
-                      style={{
-                        width: "100%",
-                        height: "100%",
-                        borderRadius: SPACING * 2,
-                      }}
-                    />
-                  </TouchableOpacity>
-                  <Text
-                    numberOfLines={1}
-                    style={{
-                      color: colors.white,
-                      fontWeight: "600",
-                      fontSize: SPACING * 1.7,
-                      marginTop: SPACING,
-                      marginBottom: SPACING / 2,
-                    }}>
-                    {coffee.name}
-                  </Text>
-                  <Text
-                    numberOfLines={2}
-                    style={{
-                      color: colors.secondary,
-                      fontSize: SPACING * 1.2,
-                    }}>
-                    {coffee.description}
-                  </Text>
-                  <View
-                    style={{
-                      marginVertical: SPACING / 2,
-                      flexDirection: "row",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                    }}>
-                    <View style={{ flexDirection: "row" }}>
-                      <Text
-                        style={{
-                          color: colors.primary,
-                          marginRight: SPACING / 2,
-                          fontSize: SPACING * 1.6,
-                        }}>
-                        $
-                      </Text>
-                      <Text
-                        style={{
-                          color: colors.white,
-                          fontSize: SPACING * 1.6,
-                        }}>
-                        {coffee.price}
-                      </Text>
-                    </View>
-                    <TouchableOpacity
-                      style={{
-                        backgroundColor: colors.primary,
-                        padding: SPACING / 2,
-                        borderRadius: SPACING,
-                      }}>
-                      <Ionicons
-                        name="add"
-                        size={SPACING * 2}
-                        color={colors.white}
-                      />
-                    </TouchableOpacity>
-                  </View>
-                </BlurView>
-              </View>
-            ))}
+          <Text style={{ color: colors["dark-light"] }}>
+            Las imágenes son a modo ilustrativo.
+          </Text>
         </View>
       </ScrollView>
     </SafeAreaView>
