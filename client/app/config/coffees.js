@@ -311,7 +311,7 @@ export default [
     name: "Muffin",
     image: require("../../assets/coffees/muffin.jpg"),
     price: "150",
-    description: "Pequeño pastelillo individual.",
+    description: "Pequeño pastelillo individual en molde.",
     categoryId: 8,
   },
   {

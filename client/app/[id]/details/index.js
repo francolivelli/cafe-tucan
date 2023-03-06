@@ -10,7 +10,6 @@ import {
 } from "react-native";
 import React from "react";
 import { Ionicons } from "@expo/vector-icons";
-import { useFonts } from "expo-font";
 import colors from "../../config/colors";
 import SPACING from "../../config/SPACING";
 import { BlurView } from "expo-blur";
@@ -26,14 +25,6 @@ const CoffeeDetailsScreen = () => {
   const router = useRouter();
   const { id } = useSearchParams();
   const product = allProducts[id - 1];
-
-  const [loaded] = useFonts({
-    Ionicons: require("@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/Ionicons.ttf"),
-  });
-
-  if (!loaded) {
-    return null;
-  }
 
   return (
     <>
