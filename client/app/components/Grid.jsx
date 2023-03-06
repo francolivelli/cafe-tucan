@@ -10,6 +10,7 @@ import React from "react";
 import SPACING from "../config/SPACING";
 import { BlurView } from "expo-blur";
 import { Ionicons } from "@expo/vector-icons";
+import { useFonts } from "expo-font";
 import colors from "../config/colors";
 import { useRouter } from "expo-router";
 
@@ -17,6 +18,14 @@ const { width } = Dimensions.get("window");
 
 const Grid = ({ products, activeCategoryId }) => {
   const router = useRouter();
+
+  const [loaded] = useFonts({
+    Ionicons: require("@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/Ionicons.ttf"),
+  });
+
+  if (!loaded) {
+    return null;
+  }
 
   return (
     <View

@@ -4,6 +4,7 @@ import { TextInput, View } from "react-native";
 import colors from "../config/colors";
 import SPACING from "../config/SPACING";
 import { Ionicons } from "@expo/vector-icons";
+import { useFonts } from "expo-font";
 
 const SearchField = ({ onChange }) => {
   const [input, setInput] = useState("");
@@ -13,13 +14,21 @@ const SearchField = ({ onChange }) => {
     onChange(text);
   };
 
+  const [loaded] = useFonts({
+    Ionicons: require('@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/Ionicons.ttf'),
+    });
+    
+    if (!loaded) {
+    return null;
+    }
+
   return (
     <View style={{ borderRadius: SPACING, overflow: "hidden" }}>
       <BlurView
         intensity={30}
         style={{ alignItems: "center", justifyContent: "center" }}>
         <TextInput
-        clearButtonMode="always"
+          clearButtonMode="always"
           onPress={(this.value = "")}
           value={input}
           onChangeText={(text) => {
