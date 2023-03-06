@@ -35,6 +35,7 @@ const CoffeeDetailsScreen = () => {
               source={product.image}
               style={{
                 height: height / 2 + SPACING * 2,
+                width: "100%",
                 justifyContent: "space-between",
               }}
               imageStyle={{
