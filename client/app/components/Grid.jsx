@@ -1,22 +1,22 @@
 import {
+  TouchableOpacity,
   Dimensions,
   Image,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
 } from "react-native";
-import React, { useState } from "react";
+import React from "react";
 import SPACING from "../config/SPACING";
 import { BlurView } from "expo-blur";
 import { Ionicons } from "@expo/vector-icons";
 import colors from "../config/colors";
-import { useNavigation } from "@react-navigation/native";
+import { useRouter } from "expo-router";
 
 const { width } = Dimensions.get("window");
 
 const Grid = ({ products, activeCategoryId }) => {
-  const navigation = useNavigation();
+  const router = useRouter();
 
   return (
     <View
@@ -48,9 +48,9 @@ const Grid = ({ products, activeCategoryId }) => {
                 padding: SPACING,
               }}>
               <TouchableOpacity
-                onPress={() =>
-                  navigation.navigate("Coffee Details", { product })
-                }
+                onPress={() => {
+                  router.push(`${product.id}/details`);
+                }}
                 style={{
                   height: 150,
                   width: "100%",
@@ -110,9 +110,9 @@ const Grid = ({ products, activeCategoryId }) => {
                   </Text>
                 </View>
                 <TouchableOpacity
-                  onPress={() =>
-                    navigation.navigate("Coffee Details", { product })
-                  }
+                  onPress={() => {
+                    router.push(`${product.id}/details`);
+                  }}
                   style={{
                     backgroundColor: colors.primary,
                     padding: SPACING / 2,

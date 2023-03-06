@@ -7,14 +7,14 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import SPACING from "../config/SPACING";
-import SearchField from "../components/SearchField";
-import Categories from "../components/Categories";
-import colors from "../config/colors";
-import Grid from "../components/Grid";
-import allProducts from "../config/coffees";
+import SPACING from "./config/SPACING";
+import SearchField from "./components/SearchField";
+import Categories from "./components/Categories";
+import colors from "./config/colors";
+import Grid from "./components/Grid";
+import allProducts from "./config/coffees";
 
-const logo = require("../../assets/logo.png");
+const logo = require("../assets/logo.png");
 
 const HomeScreen = () => {
   const [products, setProducts] = useState(allProducts);
@@ -34,7 +34,6 @@ const HomeScreen = () => {
 
     if (filteredProducts.length > 0) {
       setProducts(filteredProducts);
-      console.log("LOS PRODUCTOS FILTRADOS SON", filteredProducts);
     }
   };
 
@@ -44,8 +43,13 @@ const HomeScreen = () => {
   }, [input]);
 
   return (
-    <SafeAreaView style={{ marginHorizontal: SPACING }}>
-      <ScrollView>
+    <>
+      <ScrollView
+        style={{
+          paddingTop: SPACING * 2.5,
+          paddingHorizontal: SPACING,
+          backgroundColor: colors.dark,
+        }}>
         <View
           style={{
             padding: SPACING,
@@ -63,19 +67,32 @@ const HomeScreen = () => {
           </View>
         </TouchableOpacity>
         <SearchField onChange={(text) => setInput(text)} />
-        <Categories onChange={(id) => {setActiveCategoryId(id), setInput("")}} />
+        <Categories
+          onChange={(id) => {
+            setActiveCategoryId(id), setInput("");
+          }}
+        />
         <Grid products={products} activeCategoryId={activeCategoryId} />
+      </ScrollView>
+
+      <SafeAreaView
+        style={{
+          flexDirection: "row",
+          justifyContent: "center",
+          backgroundColor: colors.dark,
+          paddingBottom: SPACING / 2,
+        }}>
         <View
           style={{
-            alignItems: "center",
+            justifyContent: "center",
             marginTop: SPACING,
           }}>
           <Text style={{ color: colors["dark-light"] }}>
             Las imágenes son a modo ilustrativo.
           </Text>
         </View>
-      </ScrollView>
-    </SafeAreaView>
+      </SafeAreaView>
+    </>
   );
 };
 
