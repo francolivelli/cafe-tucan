@@ -5,6 +5,7 @@
       "bundler": "metro"
     },
     "name": "cafe-tucan",
-    "slug": "cafe-tucan"
+    "slug": "cafe-tucan",
+    "assetBundlePatterns": ["**/*"]
   }
 }
