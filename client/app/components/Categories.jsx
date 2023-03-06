@@ -9,14 +9,9 @@ import React, { useState } from "react";
 import colors from "../config/colors";
 import SPACING from "../config/SPACING";
 import categories from "../config/categories";
-import allProducts from "../config/coffees";
 
 const Categories = ({ onChange }) => {
   const [activeCategoryId, setActiveCategoryId] = useState(null);
-
-  const [products, setProducts] = useState(allProducts);
-
-  const [input, setInput] = useState("");
 
   const handlePress = (id) => {
     setActiveCategoryId(id);
