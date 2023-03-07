@@ -9,7 +9,7 @@ import {
 import React from "react";
 import SPACING from "../config/SPACING";
 import { BlurView } from "expo-blur";
-import { Ionicons } from "@expo/vector-icons";
+import add from "../../assets/icons/add.png";
 import colors from "../config/colors";
 import { useRouter } from "expo-router";
 
@@ -117,11 +117,12 @@ const Grid = ({ products, activeCategoryId }) => {
                     backgroundColor: colors.primary,
                     padding: SPACING / 2,
                     borderRadius: SPACING,
+                    width: SPACING*2.7,
+                    height: SPACING*2.7
                   }}>
-                  <Ionicons
-                    name="add"
-                    size={SPACING * 2}
-                    color={colors.white}
+                  <Image
+                    source={add}
+                    style={{ width: "100%", height: "100%" }}
                   />
                 </TouchableOpacity>
               </View>

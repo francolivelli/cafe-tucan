@@ -1,9 +1,9 @@
 import { BlurView } from "expo-blur";
-import React, { useEffect, useState } from "react";
-import { TextInput, View } from "react-native";
+import React, { useState } from "react";
+import { Image, TextInput, View } from "react-native";
 import colors from "../config/colors";
 import SPACING from "../config/SPACING";
-import { Ionicons } from "@expo/vector-icons";
+import search from "../../assets/icons/search.png";
 
 const SearchField = ({ onChange }) => {
   const [input, setInput] = useState("");
@@ -35,11 +35,14 @@ const SearchField = ({ onChange }) => {
           placeholder="¿Qué se te antoja hoy?"
           placeholderTextColor={colors.light}
         />
-        <Ionicons
-          style={{ position: "absolute", left: SPACING / 2 }}
-          name="search"
-          color={colors.light}
-          size={SPACING * 2}
+        <Image
+          style={{
+            position: "absolute",
+            left: SPACING / 1.5,
+            height: SPACING * 1.8,
+            width: SPACING * 1.8,
+          }}
+          source={search}         
         />
       </BlurView>
     </View>

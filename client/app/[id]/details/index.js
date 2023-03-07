@@ -9,13 +9,14 @@ import {
   View,
 } from "react-native";
 import React from "react";
-import { Ionicons } from "@expo/vector-icons";
+import back from "../../../assets/icons/back.png";
 import colors from "../../config/colors";
 import SPACING from "../../config/SPACING";
 import { BlurView } from "expo-blur";
 import { useSearchParams } from "expo-router";
 import { useRouter } from "expo-router";
 import allProducts from "../../config/coffees";
+import { Image } from "react-native";
 
 const { height, width } = Dimensions.get("window");
 
@@ -51,11 +52,12 @@ const CoffeeDetailsScreen = () => {
                   backgroundColor: colors.dark,
                   padding: SPACING,
                   borderRadius: SPACING * 1.5,
+                  height: SPACING * 4,
+                  width: SPACING * 4,
                 }}>
-                <Ionicons
-                  name="arrow-back"
-                  color={colors.light}
-                  size={SPACING * 2}
+                <Image
+                  source={back}
+                  style={{ height: "100%", width: "100%" }}
                 />
               </TouchableOpacity>
             </View>
