@@ -107,7 +107,7 @@ export default [
   {
     id: 10,
     name: "Mocha",
-    image: require("../../assets/coffees/taylor-franz-GJogrGZxKJE-unsplash.jpg"),
+    image: require("../../assets/coffees/mocha.jpg"),
     price: "380",
     shortDescription: "Espresso con leche y cacao dulce",
     description:
@@ -118,7 +118,7 @@ export default [
   {
     id: 11,
     name: "Té",
-    image: require("../../assets/coffees/taylor-franz-GJogrGZxKJE-unsplash.jpg"),
+    image: require("../../assets/coffees/te.jpg"),
     price: "250",
     description:
       "El té es el resultado de infusionar hojas y brotes de la planta Camellia sinensis. Se consigue un gusto fresco, con un toque de amargor y ligeramente áspero que ha hecho que esta infusión se haya convertido a lo largo de la historia en la bebida más habitual en todos los confines del mundo, sólo superada por el agua.",
@@ -127,7 +127,7 @@ export default [
   {
     id: 12,
     name: "Té con Leche",
-    image: require("../../assets/coffees/taylor-franz-GJogrGZxKJE-unsplash.jpg"),
+    image: require("../../assets/coffees/teConLeche.jpg"),
     price: "300",
     description:
       "El té con leche es, simplemente, té con leche añadida. Esto crea un sabor más suave y endulza ligeramente el té. Es una forma popular de servir té en muchas partes del mundo y es una manera fácil de preparar una taza de té diferente.",
@@ -136,7 +136,7 @@ export default [
   {
     id: 13,
     name: "Té Helado",
-    image: require("../../assets/coffees/taylor-franz-GJogrGZxKJE-unsplash.jpg"),
+    image: require("../../assets/coffees/teHelado.jpg"),
     price: "300",
     description:
       "El té helado (o iced tea en inglés) es el té preparado en infusión caliente (de la forma normal en que preparamos el té) pero servido frío o con hielo.",
@@ -145,7 +145,7 @@ export default [
   {
     id: 14,
     name: "Nutellatte",
-    image: require("../../assets/coffees/taylor-franz-GJogrGZxKJE-unsplash.jpg"),
+    image: require("../../assets/coffees/nutellatte.jpg"),
     price: "480",
     shortDescription: "Café latte con una cucharada de Nutella",
     description:
@@ -156,7 +156,7 @@ export default [
   {
     id: 15,
     name: "Vainilla Latte",
-    image: require("../../assets/coffees/taylor-franz-GJogrGZxKJE-unsplash.jpg"),
+    image: require("../../assets/coffees/vainillaLatte.jpg"),
     price: "460",
     shortDescription: "Café latte con jarabe de vainilla",
     description:
@@ -178,7 +178,7 @@ export default [
   {
     id: 17,
     name: "Caramel Latte",
-    image: require("../../assets/coffees/taylor-franz-GJogrGZxKJE-unsplash.jpg"),
+    image: require("../../assets/coffees/caramelLatte.jpg"),
     price: "480",
     shortDescription: "Café latte con sabor caramelo",
     description:
@@ -189,7 +189,7 @@ export default [
   {
     id: 18,
     name: "Bon o Bon Latte",
-    image: require("../../assets/coffees/taylor-franz-GJogrGZxKJE-unsplash.jpg"),
+    image: require("../../assets/coffees/bonOBonLatte.jpg"),
     price: "480",
     shortDescription: "Café latte con pasta Bon o Bon",
     description:
@@ -211,7 +211,7 @@ export default [
   {
     id: 20,
     name: "Latte Helado",
-    image: require("../../assets/coffees/taylor-franz-GJogrGZxKJE-unsplash.jpg"),
+    image: require("../../assets/coffees/latteHelado.jpg"),
     price: "480",
     shortDescription: "Espresso, leche y hielo, suave",
     description:
@@ -222,7 +222,7 @@ export default [
   {
     id: 21,
     name: "Chocolate Helado",
-    image: require("../../assets/coffees/taylor-franz-GJogrGZxKJE-unsplash.jpg"),
+    image: require("../../assets/coffees/chocolateHelado.jpg"),
     price: "480",
     shortDescription: "Espresso con leche, cacao y hielo, dulce",
     description:
@@ -233,7 +233,7 @@ export default [
   {
     id: 22,
     name: "Latte Helado Tucán",
-    image: require("../../assets/coffees/taylor-franz-GJogrGZxKJE-unsplash.jpg"),
+    image: require("../../assets/coffees/latteHeladoTucan.jpg"),
     price: "500",
     shortDescription: "Doble espresso con leche y hielo, intenso",
     description:
@@ -244,7 +244,7 @@ export default [
   {
     id: 23,
     name: "Especial Tucán",
-    image: require("../../assets/coffees/taylor-franz-GJogrGZxKJE-unsplash.jpg"),
+    image: require("../../assets/coffees/especialTucan.jpg"),
     price: "1000",
     shortDescription: "Doble espresso sobre dos bochas de helado",
     description:
@@ -264,7 +264,7 @@ export default [
   {
     id: 25,
     name: "Yogurt con melange de frutas",
-    image: require("../../assets/coffees/taylor-franz-GJogrGZxKJE-unsplash.jpg"),
+    image: require("../../assets/coffees/yogurtConMelangeDeFrutas.jpg"),
     price: "600",
     description:
       "El yogurt con frutas es una opción popular como desayuno o como merienda, ya que es una fuente de proteínas, calcio y otros nutrientes importantes. Además, las frutas aportan sabor y nutrientes adicionales al yogurt, lo que lo convierte en una opción saludable y deliciosa.",
@@ -291,7 +291,7 @@ export default [
   {
     id: 28,
     name: "Limonada con menta y jengibre",
-    image: require("../../assets/coffees/taylor-franz-GJogrGZxKJE-unsplash.jpg"),
+    image: require("../../assets/coffees/limonadaConMentaYJengibre.jpg"),
     price: "560",
     description:
       "La menta y el jengibre agregan un sabor y aroma fresco y picante a la limonada, y también tienen beneficios para la salud. La menta puede ayudar a aliviar la indigestión y el jengibre tiene propiedades antiinflamatorias y antioxidantes que pueden ayudar a mejorar la salud en general.",
@@ -353,7 +353,7 @@ export default [
   {
     id: 35,
     name: "Tortilla",
-    image: require("../../assets/coffees/taylor-franz-GJogrGZxKJE-unsplash.jpg"),
+    image: require("../../assets/coffees/tortilla.jpg"),
     price: "80",
     description: "Tipo de pan hecho con harina, agua, aceite y sal.",
     categoryId: 8,
@@ -370,7 +370,7 @@ export default [
   {
     id: 37,
     name: "Croissant con jamón y queso",
-    image: require("../../assets/coffees/taylor-franz-GJogrGZxKJE-unsplash.jpg"),
+    image: require("../../assets/coffees/croissantConJamonYQueso.jpg"),
     price: "400",
     description:
       "Croissant cortado por la mitad, relleno con jamón y queso y luego calentado.",
@@ -388,7 +388,7 @@ export default [
   {
     id: 39,
     name: "Bocha de Helado",
-    image: require("../../assets/coffees/taylor-franz-GJogrGZxKJE-unsplash.jpg"),
+    image: require("../../assets/coffees/bochaDeHelado.jpg"),
     price: "350",
     description: "Acompañá tu pedido con una bocha de helado casero adicional.",
     categoryId: 9,
@@ -396,7 +396,7 @@ export default [
   {
     id: 40,
     name: "Untables",
-    image: require("../../assets/coffees/taylor-franz-GJogrGZxKJE-unsplash.jpg"),
+    image: require("../../assets/coffees/untables.jpg"),
     price: "150",
     description:
       "Queso crema, mermelada de frutos estacionales, dulce de leche o manteca.",
