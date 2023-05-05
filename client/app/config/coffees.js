@@ -18,7 +18,7 @@ export default [
     price: "420",
     shortDescription: "Doble espresso, fuerte e intenso",
     description:
-      "Un doppio es un café espresso hecho con dos cargas, extraído utilizando un filtro de café doble. Esto resulta en 60 ml de bebida, el doble de un espresso convencional. También es llamado estándar doble y es un estándar para juzgar la calidad de un barista en competencia. La palabra doppio significa 'doble' en italiano.",
+      "Un doppio es un café espresso hecho con dos cargas, extraído utilizando un filtro de café doble. Esto resulta en 60 ml de bebida, el doble de un espresso convencional. La palabra doppio significa 'doble' en italiano.",
     categoryId: 1,
     size: "S",
     ingredients: "Café Leche",
@@ -78,7 +78,7 @@ export default [
     price: "450",
     shortDescription: "Espresso con leche, suave y dulce",
     description:
-      "El café latte es el hermano mayor del capuchino, donde todo gira en torno a la espuma suave y sedosa. Normalmente, el café latte se prepara con una o dos dosis de espresso (1/3 de la bebida) y 2/3 de leche calentada con vapor, con una pequeña capa (alrededor de 1 cm) de espuma de leche. La textura de un café latte es muy importante, ya que aporta esa bella apariencia a la bebida.",
+      "El café latte es el hermano mayor del capuchino, donde todo gira en torno a la espuma suave y sedosa. Normalmente, el café latte se prepara con una o dos dosis de espresso y 2/3 de leche calentada con vapor, con una pequeña capa de espuma de leche.",
     categoryId: 2,
     size: "S",
   },

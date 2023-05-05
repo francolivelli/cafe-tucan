@@ -1,52 +1,49 @@
+import React, { useEffect, useState } from "react";
 import {
-  FlatList,
   StyleSheet,
+  FlatList,
   Text,
   TouchableOpacity,
   View,
+  Dimensions,
 } from "react-native";
-import React, { useState } from "react";
 import colors from "../config/colors";
 import SPACING from "../config/SPACING";
 import categories from "../config/categories";
 
-const Categories = ({ onChange }) => {
-  const [activeCategoryId, setActiveCategoryId] = useState(null);
+const Categories = ({ activeCategoryId, onChange }) => {
+  const [localActiveCategoryId, setLocalActiveCategoryId] =
+    useState(activeCategoryId);
 
   const handlePress = (id) => {
-    setActiveCategoryId(id);
+    setLocalActiveCategoryId(id);
     onChange(id);
   };
 
+  useEffect(() => {
+    setLocalActiveCategoryId(activeCategoryId);
+  }, [activeCategoryId]);
+
   return (
     <FlatList
-      horizontal={true}
+      showsHorizontalScrollIndicator={false}
+      horizontal={isLargeScreen ? false : true}
       data={categories}
       keyExtractor={(item) => item.id}
-      contentContainerStyle={{ marginVertical: SPACING }}
+      contentContainerStyle={styles.contentContainer}
       renderItem={({ item }) => (
         <TouchableOpacity
           onPress={() => handlePress(item.id)}
-          style={{ marginRight: SPACING * 2, alignItems: "center" }}>
+          style={styles.touchable}>
           <Text
             style={[
-              {
-                color: colors.secondary,
-                fontSize: SPACING * 2,
-              },
-              activeCategoryId === item.id && { color: colors.primary },
+              styles.categoryText,
+              localActiveCategoryId === item.id && styles.activeCategoryText,
             ]}>
             {item.name}
           </Text>
-          {activeCategoryId === item.id ? (
-            <View
-              style={{
-                height: SPACING,
-                width: SPACING,
-                backgroundColor: colors.primary,
-                borderRadius: SPACING / 2,
-              }}
-            />
+          {localActiveCategoryId === item.id ? (
+            <View style={styles.circle} />
           ) : (
             <></>
           )}
@@ -56,6 +53,40 @@ const Categories = ({ onChange }) => {
   );
 };
 
-export default Categories;
+const { width } = Dimensions.get("window");
+const isLargeScreen = width >= 768;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  contentContainer: {
+    marginVertical: SPACING,
+    ...(isLargeScreen && {
+      marginVertical: SPACING * 2,
+    }),
+  },
+  touchable: {
+    marginRight: SPACING * 2,
+    alignItems: "center",
+    ...(isLargeScreen && {
+      marginVertical: SPACING / 1.4,
+    }),
+  },
+  categoryText: {
+    color: colors.secondary,
+    fontSize: SPACING * 2,
+  },
+  activeCategoryText: {
+    color: colors.primary,
+  },
+  circle: {
+    height: SPACING,
+    width: SPACING,
+    backgroundColor: colors.primary,
+    borderRadius: SPACING / 2,
+    ...(isLargeScreen && {
+      height: 0,
+      width: 0,
+    }),
+  },
+});
+
+export default Categories;
