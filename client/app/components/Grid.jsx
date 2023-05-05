@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     ...(isMediumScreen && {
       justifyContent: "center",
       marginTop: SPACING * 3,
-      alignItems: "center"
+      alignItems: "center",
     }),
   },
   list: {
@@ -97,12 +97,13 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     justifyContent: "space-between",
     ...(isMediumScreen && {
-      justifyContent: "space-around",
+      justifyContent: "flex-start",
+      marginLeft: "12%",
       gap: "1vw",
       width: "80%",
     }),
     ...(isLargeScreen && {
-      justifyContent: "space-around",
+      justifyContent: "flex-start",
       gap: "2vw",
       width: "90%",
     }),
@@ -114,7 +115,9 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     ...(isMediumScreen && {
       width: "40%",
-      marginBottom:0,
+      marginBottom: 0,
+      marginHorizontal: SPACING,
+      marginVertical: SPACING
     }),
     ...(isLargeScreen && {
       width: "18%",

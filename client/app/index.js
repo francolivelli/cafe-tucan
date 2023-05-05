@@ -135,7 +135,7 @@ const HomeScreen = () => {
           </View>
         </SafeAreaView>
       </View>
-      {isLargeScreen && showCoffeDetails && (
+      {isMediumScreen && showCoffeDetails && (
         <CoffeeDetails
           productId={selectedProduct}
           onShowDetails={handleShowCoffeDetails}
@@ -146,13 +146,14 @@ const HomeScreen = () => {
 };
 
 const { width } = Dimensions.get("window");
-const isLargeScreen = width >= 768;
+const isMediumScreen = width >= 768;
+const isLargeScreen = width >= 992;
 
 const styles = StyleSheet.create({
   layout: {
     flex: 1,
     backgroundColor: colors.dark,
-    ...(isLargeScreen && {
+    ...(isMediumScreen && {
       width: "100%",
     }),
   },
@@ -164,16 +165,19 @@ const styles = StyleSheet.create({
     zIndex: 10,
     alignSelf: "center",
     width: "100%",
-    ...(isLargeScreen && {
+    ...(isMediumScreen && {
       top: 0,
       left: 0,
       height: "100vh",
-      width: 250,
+      width: 300,
       display: "flex",
       position: "fixed",
       flexDirection: "column",
       justifyContent: "space-between",
       alignItems: "center",
+    }),
+    ...(isLargeScreen && {
+      width: 250,
     }),
   },
   logoContainer: {
@@ -184,7 +188,7 @@ const styles = StyleSheet.create({
     height: SPACING * 14,
     alignItems: "center",
     justifyContent: "center",
-    ...(isLargeScreen && {
+    ...(isMediumScreen && {
       marginVertical: 0,
       width: 270,
       marginTop: 0,
@@ -193,11 +197,11 @@ const styles = StyleSheet.create({
   logo: {
     width: "70%",
     height: "80%",
-    ...(isLargeScreen && { height: "70%", width: 220 }),
+    ...(isMediumScreen && { height: "70%", width: 220 }),
   },
   gridContainer: {
     paddingHorizontal: SPACING,
-    ...(isLargeScreen && {
+    ...(isMediumScreen && {
       marginLeft: 250,
     }),
   },
@@ -206,12 +210,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: colors.dark,
     paddingBottom: SPACING / 2,
-    ...(isLargeScreen && { paddingBottom: SPACING * 2}),
+    ...(isMediumScreen && { paddingBottom: SPACING * 2 }),
   },
   disclaimerTextContainer: {
     justifyContent: "center",
     marginTop: SPACING,
-    ...(isLargeScreen && { marginTop: 0 }),
+    ...(isMediumScreen && { marginTop: 0 }),
   },
   disclaimerText: {
     color: colors["dark-light"],

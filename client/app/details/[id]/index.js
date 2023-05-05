@@ -1,6 +1,7 @@
 import {
   Dimensions,
   ImageBackground,
+  Modal,
   SafeAreaView,
   ScrollView,
   StyleSheet,
@@ -8,7 +9,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import back from "../../../assets/icons/back.png";
 import close from "../../../assets/icons/close.png";
 import colors from "../../config/colors";
@@ -17,6 +18,7 @@ import { BlurView } from "expo-blur";
 import { useRouter, useSearchParams } from "expo-router";
 import allProducts from "../../config/coffees";
 import { Image } from "react-native";
+import { color } from "react-native-reanimated";
 
 const { height, width } = Dimensions.get("window");
 
@@ -28,42 +30,49 @@ const CoffeeDetails = ({ productId, onShowDetails }) => {
 
   const sizes = ["S", "M", "L"];
 
+  const [modalVisible, setModalVisible] = useState(false);
+  const toggleModal = () => {
+    setModalVisible(!modalVisible);
+  };
+
   return (
     <View style={styles.layout}>
       <ScrollView contentContainerStyle={styles.container}>
         <SafeAreaView style={styles.subContainer}>
           <SafeAreaView style={styles.picContainer}>
-            <ImageBackground
-              source={product.image}
-              style={styles.imageBackground}
-              imageStyle={styles.imageBackgroundStyle}>
-              {!isMediumScreen && (
-                <>
-                  <View style={styles.backBtnContainer}>
-                    <TouchableOpacity
-                      onPress={() => router.push("/")}
-                      style={styles.backBtnTouchable}>
-                      <Image source={back} style={styles.backBtnImage} />
-                    </TouchableOpacity>
-                  </View>
-                  <View style={styles.blurViewContainer}>
-                    <BlurView
-                      intensity={80}
-                      tint="dark"
-                      style={styles.blurView}>
-                      <View>
-                        <Text style={styles.nameText}>{product.name}</Text>
-                        {product.shortDescription && (
-                          <Text style={styles.shortDescriptionText}>
-                            {product.shortDescription}
-                          </Text>
-                        )}
-                      </View>
-                    </BlurView>
-                  </View>
-                </>
-              )}
-            </ImageBackground>
+            <TouchableOpacity onPress={toggleModal}>
+              <ImageBackground
+                source={product.image}
+                style={styles.imageBackground}
+                imageStyle={styles.imageBackgroundStyle}>
+                {!isMediumScreen && (
+                  <>
+                    <View style={styles.backBtnContainer}>
+                      <TouchableOpacity
+                        onPress={() => router.push("/")}
+                        style={styles.backBtnTouchable}>
+                        <Image source={back} style={styles.backBtnImage} />
+                      </TouchableOpacity>
+                    </View>
+                    <View style={styles.blurViewContainer}>
+                      <BlurView
+                        intensity={80}
+                        tint="dark"
+                        style={styles.blurView}>
+                        <View>
+                          <Text style={styles.nameText}>{product.name}</Text>
+                          {product.shortDescription && (
+                            <Text style={styles.shortDescriptionText}>
+                              {product.shortDescription}
+                            </Text>
+                          )}
+                        </View>
+                      </BlurView>
+                    </View>
+                  </>
+                )}
+              </ImageBackground>
+            </TouchableOpacity>
           </SafeAreaView>
           <View style={styles.descriptionContainer}>
             {isMediumScreen && (
@@ -138,6 +147,22 @@ const CoffeeDetails = ({ productId, onShowDetails }) => {
             </View>
           </View>
         </SafeAreaView>
+      )}
+      {!isMediumScreen && !isLargeScreen && (
+        <Modal visible={modalVisible} transparent={true}>
+          <View style={styles.modalContainer}>
+            <View style={styles.imageContainer}>
+              <Image source={product.image} style={styles.modalImage} />
+              <View style={styles.closeModalContainer}>
+                <TouchableOpacity
+                  onPress={toggleModal}
+                  style={styles.closeModalTouchable}>
+                  <Image source={close} style={styles.closeModalImage} />
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+        </Modal>
       )}
     </View>
   );
@@ -375,7 +400,7 @@ const styles = StyleSheet.create({
     paddingRight: SPACING * 3,
     ...(isMediumScreen && {
       padding: "3%",
-      paddingRight: "3%"
+      paddingRight: "3%",
     }),
   },
   priceText: {
@@ -411,6 +436,39 @@ const styles = StyleSheet.create({
     ...(isLargeScreen && {
       fontSize: "1.6vw",
     }),
+  },
+  modalContainer: {
+    flex: 1,
+    backgroundColor: "rgba(0,0,0,0.5)",
+    borderRadius: 20,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  modalImage: {
+    width: 300,
+    height: 300,
+    resizeMode: "cover",
+    borderRadius: SPACING * 2,
+  },
+  closeModalContainer: {
+    position: "absolute",
+    top: 16,
+    right: 16,
+    height: 28,
+    width: 28,
+    backgroundColor: colors.dark,
+    justifyContent: "center",
+    borderRadius: "50%"
+  },
+  closeModalTouchable: {
+    height: "80%",
+    width: "80%",
+    padding: 2,
+    alignSelf: "center",
+  },
+  closeModalImage: {
+    height: "100%",
+    width: "100%",
   },
 });
 
