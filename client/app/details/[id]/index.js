@@ -217,7 +217,7 @@ const styles = StyleSheet.create({
     width: "100%",
     justifyContent: "space-between",
     ...(isMediumScreen && {
-      height: "100%",
+      height: "26vw",
       width: "100%",
     }),
   },
@@ -434,33 +434,6 @@ const styles = StyleSheet.create({
       fontSize: "1.6vw",
     }),
   },
-  // layout: {
-  //   flex: 1,
-  //   backgroundColor: colors.dark,
-  //   width: "100%",
-  //   height: "100%",
-  //   ...(isMediumScreen && {
-  //     flexDirection: "row",
-  //     flex: 0,
-  //     position: "fixed",
-  //     backgroundColor: "rgba(0,0,0,0.5)",
-  //   }),
-  // },
-  // container: {
-  //   backgroundColor: colors.dark,
-  //   ...(isMediumScreen && {
-  //     flexDirection: "row",
-  //     backgroundColor: null,
-  //     height: "33vw",
-  //     width: "70%",
-  //     alignSelf: "center",
-  //     transform: [{ translateY: "50%" }],
-  //   }),
-  //   ...(isLargeScreen && {
-  //     height: "26vw",
-  //     width: "55%",
-  //   }),
-  // },
   modalContainer: {
     backgroundColor: "rgba(0,0,0,0.5)",
     borderRadius: 20,
