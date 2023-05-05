@@ -18,7 +18,6 @@ import { BlurView } from "expo-blur";
 import { useRouter, useSearchParams } from "expo-router";
 import allProducts from "../../config/coffees";
 import { Image } from "react-native";
-import { color } from "react-native-reanimated";
 
 const { height, width } = Dimensions.get("window");
 
@@ -148,21 +147,19 @@ const CoffeeDetails = ({ productId, onShowDetails }) => {
           </View>
         </SafeAreaView>
       )}
-      {!isMediumScreen && !isLargeScreen && (
-        <Modal visible={modalVisible} transparent={true}>
-          <View style={styles.modalContainer}>
-            <View style={styles.imageContainer}>
-              <Image source={product.image} style={styles.modalImage} />
-              <View style={styles.closeModalContainer}>
-                <TouchableOpacity
-                  onPress={toggleModal}
-                  style={styles.closeModalTouchable}>
-                  <Image source={close} style={styles.closeModalImage} />
-                </TouchableOpacity>
-              </View>
+      {!isMediumScreen && !isLargeScreen && modalVisible && (
+        <View style={styles.modalContainer}>
+          <View style={styles.imageContainer}>
+            <Image source={product.image} style={styles.modalImage} />
+            <View style={styles.closeModalContainer}>
+              <TouchableOpacity
+                onPress={toggleModal}
+                style={styles.closeModalTouchable}>
+                <Image source={close} style={styles.closeModalImage} />
+              </TouchableOpacity>
             </View>
           </View>
-        </Modal>
+        </View>
       )}
     </View>
   );
@@ -437,12 +434,42 @@ const styles = StyleSheet.create({
       fontSize: "1.6vw",
     }),
   },
+  // layout: {
+  //   flex: 1,
+  //   backgroundColor: colors.dark,
+  //   width: "100%",
+  //   height: "100%",
+  //   ...(isMediumScreen && {
+  //     flexDirection: "row",
+  //     flex: 0,
+  //     position: "fixed",
+  //     backgroundColor: "rgba(0,0,0,0.5)",
+  //   }),
+  // },
+  // container: {
+  //   backgroundColor: colors.dark,
+  //   ...(isMediumScreen && {
+  //     flexDirection: "row",
+  //     backgroundColor: null,
+  //     height: "33vw",
+  //     width: "70%",
+  //     alignSelf: "center",
+  //     transform: [{ translateY: "50%" }],
+  //   }),
+  //   ...(isLargeScreen && {
+  //     height: "26vw",
+  //     width: "55%",
+  //   }),
+  // },
   modalContainer: {
-    flex: 1,
     backgroundColor: "rgba(0,0,0,0.5)",
     borderRadius: 20,
     alignItems: "center",
     justifyContent: "center",
+    flexDirection: "row",
+    position: "fixed",
+    width: "100%",
+    height: "100%",
   },
   modalImage: {
     width: 300,
@@ -458,7 +485,7 @@ const styles = StyleSheet.create({
     width: 28,
     backgroundColor: colors.dark,
     justifyContent: "center",
-    borderRadius: "50%"
+    borderRadius: SPACING,
   },
   closeModalTouchable: {
     height: "80%",
