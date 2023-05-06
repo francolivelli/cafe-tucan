@@ -170,7 +170,6 @@ const isLargeScreen = width >= 992;
 
 const styles = StyleSheet.create({
   layout: {
-
     backgroundColor: colors.dark,
     width: "100%",
     height: "100%",

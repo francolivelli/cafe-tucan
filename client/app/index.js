@@ -8,6 +8,7 @@ import {
   View,
   StyleSheet,
   Dimensions,
+  Platform,
 } from "react-native";
 import SPACING from "./config/SPACING";
 import SearchField from "./components/SearchField";
@@ -146,6 +147,7 @@ const HomeScreen = () => {
 
 const { width } = Dimensions.get("window");
 const isMediumScreen = width >= 768;
+const isWeb = Platform.OS === "web";
 
 const styles = StyleSheet.create({
   layout: {
@@ -156,7 +158,6 @@ const styles = StyleSheet.create({
     }),
   },
   header: {
-    paddingTop: SPACING,
     paddingHorizontal: SPACING,
     position: "absolute",
     backgroundColor: colors.dark,
@@ -174,10 +175,13 @@ const styles = StyleSheet.create({
       justifyContent: "space-between",
       alignItems: "center",
     }),
+    ...(!isWeb &&
+      !isMediumScreen && {
+        paddingTop: SPACING * 3,
+      }),
   },
   logoContainer: {
     width: "100%",
-    marginTop: SPACING * 3,
     marginVertical: SPACING,
     paddingBottom: SPACING,
     height: SPACING * 14,

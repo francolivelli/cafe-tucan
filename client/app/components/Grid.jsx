@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Text,
   View,
+  Platform,
 } from "react-native";
 import React from "react";
 import SPACING from "../config/SPACING";
@@ -82,16 +83,21 @@ const Grid = ({ products, onCoffeDetails }) => {
 const { width } = Dimensions.get("window");
 const isMediumScreen = width >= 768;
 const isLargeScreen = width >= 992;
+const isWeb = Platform.OS === "web";
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 285,
+    marginTop: 255,
     marginBottom: SPACING * 2,
     ...(isMediumScreen && {
       justifyContent: "center",
       marginTop: SPACING * 3,
       alignItems: "center",
     }),
+    ...(!isWeb &&
+      !isMediumScreen && {
+        paddingTop: SPACING * 3,
+      }),
   },
   list: {
     flexDirection: "row",
