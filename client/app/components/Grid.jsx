@@ -36,9 +36,7 @@ const Grid = ({ products, activeCategoryId, onCoffeDetails }) => {
                   onPress={
                     !isMediumScreen
                       ? () => {
-                          router.push(`details/${product.id}`, {
-                            activeCategoryId,
-                          });
+                          router.push(`details/${product.id}`);
                         }
                       : () => onCoffeDetails(product.id)
                   }

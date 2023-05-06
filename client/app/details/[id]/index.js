@@ -170,7 +170,7 @@ const isLargeScreen = width >= 992;
 
 const styles = StyleSheet.create({
   layout: {
-    flex: 1,
+
     backgroundColor: colors.dark,
     width: "100%",
     height: "100%",
@@ -217,6 +217,10 @@ const styles = StyleSheet.create({
     width: "100%",
     justifyContent: "space-between",
     ...(isMediumScreen && {
+      height: "33vw",
+      width: "100%",
+    }),
+    ...(isLargeScreen && {
       height: "26vw",
       width: "100%",
     }),
@@ -440,7 +444,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "row",
-    position: "fixed",
+    position: "absolute",
     width: "100%",
     height: "100%",
   },

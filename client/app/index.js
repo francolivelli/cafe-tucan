@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
       alignItems: "center",
     }),
     ...(isLargeScreen && {
-      width: 250,
+      width: 300,
     }),
   },
   logoContainer: {
