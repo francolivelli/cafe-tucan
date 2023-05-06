@@ -4,14 +4,18 @@ import { Image, TextInput, View, StyleSheet, Dimensions } from "react-native";
 import colors from "../config/colors";
 import SPACING from "../config/SPACING";
 import search from "../../assets/icons/search.png";
+import { useDispatch, useSelector } from "react-redux";
+import { setActiveCategoryId } from "../states/categorySlice";
 
-const SearchField = ({
-  onChange,
-  activeCategoryId,
-  setActiveCategoryId,
-  input,
-}) => {
+const SearchField = ({ onChange, input }) => {
   const [localInput, setLocalInput] = useState("");
+
+  const dispatch = useDispatch();
+  const activeCategoryId = useSelector(state => state.category.activeCategoryId);
+
+  const handleCategoryChange = (categoryId) => {
+    dispatch(setActiveCategoryId(categoryId));
+  };
 
   useEffect(() => {
     if (activeCategoryId) {
@@ -34,7 +38,7 @@ const SearchField = ({
             setLocalInput(text);
             if (text !== "") {
               onChange(text);
-              setActiveCategoryId(null);
+              handleCategoryChange(null);
             }
           }}
           style={styles.textInput}

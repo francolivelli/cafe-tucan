@@ -17,17 +17,25 @@ import Grid from "./components/Grid";
 import CoffeeDetails from "./details/[id]";
 import allProducts from "./config/coffees";
 import * as Animatable from "react-native-animatable";
+import { useDispatch, useSelector } from 'react-redux';
+import { setActiveCategoryId } from "./states/categorySlice";
 
 const logo = require("../assets/logo.png");
 
 const HomeScreen = () => {
   const [products, setProducts] = useState(allProducts);
-  const [activeCategoryId, setActiveCategoryId] = useState(null);
   const [input, setInput] = useState("");
   const [headerVisible, setHeaderVisible] = useState(true);
   const [previousOffset, setPreviousOffset] = useState(0);
   const [showCoffeDetails, setShowCoffeeDetails] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
+
+  const dispatch = useDispatch();
+  const activeCategoryId = useSelector(state => state.category.activeCategoryId);
+
+  const handleCategoryChange = (categoryId) => {
+    dispatch(setActiveCategoryId(categoryId));
+  };
 
   const scrollViewRef = useRef(null);
 
@@ -46,7 +54,7 @@ const HomeScreen = () => {
   };
 
   const handleLogoPress = () => {
-    setActiveCategoryId(null);
+    handleCategoryChange(null);
     setInput("");
   };
 
@@ -87,14 +95,12 @@ const HomeScreen = () => {
           </TouchableOpacity>
           <SearchField
             onChange={(text) => setInput(text)}
-            activeCategoryId={activeCategoryId}
-            setActiveCategoryId={setActiveCategoryId}
             input={input}
           />
           <Categories
             activeCategoryId={activeCategoryId}
             onChange={(id) => {
-              setActiveCategoryId(id);
+              handleCategoryChange(id);
               setInput("");
             }}
           />
@@ -122,7 +128,6 @@ const HomeScreen = () => {
           scrollEventThrottle={16}>
           <Grid
             products={products}
-            activeCategoryId={activeCategoryId}
             onCoffeDetails={handleShowCoffeDetails}
           />
         </ScrollView>
@@ -175,9 +180,6 @@ const styles = StyleSheet.create({
       flexDirection: "column",
       justifyContent: "space-between",
       alignItems: "center",
-    }),
-    ...(isLargeScreen && {
-      width: 300,
     }),
   },
   logoContainer: {

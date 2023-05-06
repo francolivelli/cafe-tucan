@@ -10,18 +10,19 @@ import {
 import colors from "../config/colors";
 import SPACING from "../config/SPACING";
 import categories from "../config/categories";
+import { useDispatch, useSelector } from "react-redux";
+import { setActiveCategoryId } from "../states/categorySlice";
 
-const Categories = ({ activeCategoryId, onChange }) => {
-  const [localActiveCategoryId, setLocalActiveCategoryId] =
-    useState(activeCategoryId);
+const Categories = ({ onChange }) => {
+  const dispatch = useDispatch();
+  const activeCategoryId = useSelector(state => state.category.activeCategoryId);
 
-  const handlePress = (id) => {
-    setLocalActiveCategoryId(id);
-    onChange(id);
+  const handleCategoryChange = (categoryId) => {
+    dispatch(setActiveCategoryId(categoryId));
   };
 
   useEffect(() => {
-    setLocalActiveCategoryId(activeCategoryId);
+    handleCategoryChange(activeCategoryId);
   }, [activeCategoryId]);
 
   return (
@@ -33,16 +34,16 @@ const Categories = ({ activeCategoryId, onChange }) => {
       contentContainerStyle={styles.contentContainer}
       renderItem={({ item }) => (
         <TouchableOpacity
-          onPress={() => handlePress(item.id)}
+          onPress={() => handleCategoryChange(item.id)}
           style={styles.touchable}>
           <Text
             style={[
               styles.categoryText,
-              localActiveCategoryId === item.id && styles.activeCategoryText,
+              activeCategoryId === item.id && styles.activeCategoryText,
             ]}>
             {item.name}
           </Text>
-          {localActiveCategoryId === item.id ? (
+          {activeCategoryId === item.id ? (
             <View style={styles.circle} />
           ) : (
             <></>

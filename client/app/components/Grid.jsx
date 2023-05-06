@@ -12,9 +12,12 @@ import { BlurView } from "expo-blur";
 import add from "../../assets/icons/add.png";
 import colors from "../config/colors";
 import { useRouter } from "expo-router";
+import { useSelector } from "react-redux";
 
-const Grid = ({ products, activeCategoryId, onCoffeDetails }) => {
+const Grid = ({ products, onCoffeDetails }) => {
   const router = useRouter();
+
+  const activeCategoryId = useSelector(state => state.category.activeCategoryId);
 
   return (
     <View style={styles.container}>
