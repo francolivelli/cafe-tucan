@@ -17,7 +17,7 @@ import Grid from "./components/Grid";
 import CoffeeDetails from "./details/[id]";
 import allProducts from "./config/coffees";
 import * as Animatable from "react-native-animatable";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
 import { setActiveCategoryId } from "./states/categorySlice";
 
 const logo = require("../assets/logo.png");
@@ -31,7 +31,9 @@ const HomeScreen = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
 
   const dispatch = useDispatch();
-  const activeCategoryId = useSelector(state => state.category.activeCategoryId);
+  const activeCategoryId = useSelector(
+    (state) => state.category.activeCategoryId
+  );
 
   const handleCategoryChange = (categoryId) => {
     dispatch(setActiveCategoryId(categoryId));
@@ -85,7 +87,13 @@ const HomeScreen = () => {
       <View style={styles.layout}>
         <Animatable.View
           style={[styles.header]}
-          animation={headerVisible ? "fadeInDown" : "fadeOutUp"}
+          animation={
+            !isMediumScreen
+              ? headerVisible
+                ? "fadeInDown"
+                : "fadeOutUp"
+              : null
+          }
           duration={500}
           useNativeDriver>
           <TouchableOpacity onPress={handleLogoPress}>
@@ -93,10 +101,7 @@ const HomeScreen = () => {
               <Image source={logo} style={styles.logo} />
             </View>
           </TouchableOpacity>
-          <SearchField
-            onChange={(text) => setInput(text)}
-            input={input}
-          />
+          <SearchField onChange={(text) => setInput(text)} input={input} />
           <Categories
             activeCategoryId={activeCategoryId}
             onChange={(id) => {
@@ -115,7 +120,7 @@ const HomeScreen = () => {
             const isOverDistanceDown =
               Math.abs(currentOffset - previousOffset) > 50;
             const isOverDistanceUp =
-              Math.abs(currentOffset - previousOffset) > 250;
+              Math.abs(currentOffset - previousOffset) > 200;
             const isGridTall = event.nativeEvent.contentSize.height > 1000;
             if (isOverDistanceDown && direction === "down" && isGridTall) {
               setHeaderVisible(false);
@@ -126,19 +131,8 @@ const HomeScreen = () => {
             }
           }}
           scrollEventThrottle={16}>
-          <Grid
-            products={products}
-            onCoffeDetails={handleShowCoffeDetails}
-          />
+          <Grid products={products} onCoffeDetails={handleShowCoffeDetails} />
         </ScrollView>
-
-        <SafeAreaView style={styles.disclaimerContainer}>
-          <View style={styles.disclaimerTextContainer}>
-            <Text style={styles.disclaimerText}>
-              Las imágenes son a modo ilustrativo.
-            </Text>
-          </View>
-        </SafeAreaView>
       </View>
       {isMediumScreen && showCoffeDetails && (
         <CoffeeDetails
@@ -152,7 +146,6 @@ const HomeScreen = () => {
 
 const { width } = Dimensions.get("window");
 const isMediumScreen = width >= 768;
-const isLargeScreen = width >= 992;
 
 const styles = StyleSheet.create({
   layout: {
@@ -163,7 +156,7 @@ const styles = StyleSheet.create({
     }),
   },
   header: {
-    paddingTop: SPACING * 1.5,
+    paddingTop: SPACING,
     paddingHorizontal: SPACING,
     position: "absolute",
     backgroundColor: colors.dark,
@@ -206,21 +199,6 @@ const styles = StyleSheet.create({
     ...(isMediumScreen && {
       marginLeft: 250,
     }),
-  },
-  disclaimerContainer: {
-    flexDirection: "row",
-    justifyContent: "center",
-    backgroundColor: colors.dark,
-    paddingBottom: SPACING / 2,
-    ...(isMediumScreen && { paddingBottom: SPACING * 2 }),
-  },
-  disclaimerTextContainer: {
-    justifyContent: "center",
-    marginTop: SPACING,
-    ...(isMediumScreen && { marginTop: 0 }),
-  },
-  disclaimerText: {
-    color: colors["dark-light"],
   },
 });
 

@@ -193,7 +193,7 @@ export default [
     price: "480",
     shortDescription: "Café latte con pasta Bon o Bon",
     description:
-      "Si sos un amante de los bombones y del café, nuestro café latte con crema bon o bon es la bebida perfecta.",
+      "Si sos un amante de los bombones y del café, nuestro café latte con crema Bon o Bon es la bebida perfecta.",
     categoryId: 4,
     size: "S",
   },

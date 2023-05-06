@@ -85,7 +85,7 @@ const isLargeScreen = width >= 992;
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 290,
+    marginTop: 285,
     marginBottom: SPACING * 2,
     ...(isMediumScreen && {
       justifyContent: "center",

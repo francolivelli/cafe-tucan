@@ -36,7 +36,7 @@ const CoffeeDetails = ({ productId, onShowDetails }) => {
 
   return (
     <View style={styles.layout}>
-      <ScrollView contentContainerStyle={styles.container}>
+      <ScrollView contentContainerStyle={styles.container} bounces={false}>
         <SafeAreaView style={styles.subContainer}>
           <SafeAreaView style={styles.picContainer}>
             <TouchableOpacity onPress={toggleModal}>
