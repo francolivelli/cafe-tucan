@@ -18,7 +18,9 @@ import { useSelector } from "react-redux";
 const Grid = ({ products, onCoffeDetails }) => {
   const router = useRouter();
 
-  const activeCategoryId = useSelector(state => state.category.activeCategoryId);
+  const activeCategoryId = useSelector(
+    (state) => state.category.activeCategoryId
+  );
 
   return (
     <View style={styles.container}>
@@ -29,6 +31,15 @@ const Grid = ({ products, onCoffeDetails }) => {
               return true;
             }
             return product.categoryId === activeCategoryId;
+          })
+          .sort((a, b) => {
+            if (a.categoryId < b.categoryId) {
+              return -1;
+            }
+            if (a.categoryId > b.categoryId) {
+              return 1;
+            }
+            return 0;
           })
           .map((product) => (
             <View key={product.id} style={styles.product}>
@@ -47,30 +58,34 @@ const Grid = ({ products, onCoffeDetails }) => {
                   style={styles.productImage}>
                   <Image source={product.image} style={styles.productImage} />
                 </TouchableOpacity>
-                <Text numberOfLines={1} style={styles.productTitle}>
-                  {product.name}
-                </Text>
-                <Text numberOfLines={2} style={styles.productDescription}>
-                  {product.shortDescription
-                    ? `${product.shortDescription}\n${product.description}`
-                    : product.description}
-                </Text>
-                <View style={styles.productFooter}>
-                  <View style={styles.productPriceWrapper}>
-                    <Text style={styles.productCurrency}>$</Text>
-                    <Text style={styles.productPrice}>{product.price}</Text>
+                <View style={styles.infoContainer}>
+                  <View style={styles.textContainer}>
+                    <Text numberOfLines={1} style={styles.productTitle}>
+                      {product.name}
+                    </Text>
+                    <Text numberOfLines={2} style={styles.productDescription}>
+                      {product.shortDescription
+                        ? `${product.shortDescription}\n${product.description}`
+                        : product.description}
+                    </Text>
                   </View>
-                  <TouchableOpacity
-                    onPress={
-                      !isMediumScreen
-                        ? () => {
-                            router.push(`details/${product.id}`);
-                          }
-                        : () => onCoffeDetails(product.id)
-                    }
-                    style={styles.addButton}>
-                    <Image source={add} style={styles.addButtonIcon} />
-                  </TouchableOpacity>
+                  <View style={styles.productFooter}>
+                    <View style={styles.productPriceWrapper}>
+                      <Text style={styles.productCurrency}>$</Text>
+                      <Text style={styles.productPrice}>{product.price}</Text>
+                    </View>
+                    <TouchableOpacity
+                      onPress={
+                        !isMediumScreen
+                          ? () => {
+                              router.push(`details/${product.id}`);
+                            }
+                          : () => onCoffeDetails(product.id)
+                      }
+                      style={styles.button}>
+                      <Image source={add} style={styles.icon} />
+                    </TouchableOpacity>
+                  </View>
                 </View>
               </BlurView>
             </View>
@@ -87,7 +102,7 @@ const isWeb = Platform.OS === "web";
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 255,
+    marginTop: 257.5,
     marginBottom: SPACING * 2,
     ...(isMediumScreen && {
       justifyContent: "center",
@@ -96,7 +111,7 @@ const styles = StyleSheet.create({
     }),
     ...(!isWeb &&
       !isMediumScreen && {
-        paddingTop: SPACING * 3,
+        paddingTop: SPACING * 3.25,
       }),
   },
   list: {
@@ -124,7 +139,7 @@ const styles = StyleSheet.create({
       width: "40%",
       marginBottom: 0,
       marginHorizontal: SPACING,
-      marginVertical: SPACING
+      marginVertical: SPACING,
     }),
     ...(isLargeScreen && {
       width: "18%",
@@ -132,11 +147,16 @@ const styles = StyleSheet.create({
   },
   productContent: {
     padding: SPACING,
+    height: SPACING * 26.5,
   },
   productImage: {
     height: 150,
     width: "100%",
     borderRadius: SPACING * 2,
+  },
+  infoContainer: {
+    justifyContent: "space-between",
+    height: "40%"
   },
   productTitle: {
     color: colors.white,
@@ -167,14 +187,14 @@ const styles = StyleSheet.create({
     color: colors.white,
     fontSize: SPACING * 1.6,
   },
-  addButton: {
+  button: {
     backgroundColor: colors.primary,
     padding: SPACING / 2,
     borderRadius: SPACING,
     width: SPACING * 2.7,
     height: SPACING * 2.7,
   },
-  addButtonIcon: {
+  icon: {
     width: "100%",
     height: "100%",
   },

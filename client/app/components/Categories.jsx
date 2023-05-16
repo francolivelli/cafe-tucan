@@ -9,48 +9,105 @@ import {
 } from "react-native";
 import colors from "../config/colors";
 import SPACING from "../config/SPACING";
-import categories from "../config/categories";
 import { useDispatch, useSelector } from "react-redux";
 import { setActiveCategoryId } from "../states/categorySlice";
+import * as Animatable from "react-native-animatable";
+import axios from "axios";
+import { API_URL } from "@env";
 
-const Categories = ({ onChange }) => {
+const Categories = () => {
   const dispatch = useDispatch();
-  const activeCategoryId = useSelector(state => state.category.activeCategoryId);
+  const activeCategoryId = useSelector(
+    (state) => state.category.activeCategoryId
+  );
+  const flatListRef = React.useRef(null);
+  const firstIndex = 0;
 
-  const handleCategoryChange = (categoryId) => {
-    dispatch(setActiveCategoryId(categoryId));
-  };
+  const [categories, setCategories] = useState()
 
   useEffect(() => {
     handleCategoryChange(activeCategoryId);
   }, [activeCategoryId]);
 
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const categoriesResponse = await axios.get(`${API_URL}/categories`);
+      setCategories(categoriesResponse.data);
+    };
+  
+    fetchCategories();
+  }, []);
+
+  const handleCategoryChange = (categoryId) => {
+    dispatch(setActiveCategoryId(categoryId));
+  };
+
   return (
-    <FlatList
-      showsHorizontalScrollIndicator={false}
-      horizontal={isLargeScreen ? false : true}
-      data={categories}
-      keyExtractor={(item) => item.id}
-      contentContainerStyle={styles.contentContainer}
-      renderItem={({ item }) => (
-        <TouchableOpacity
-          onPress={() => handleCategoryChange(item.id)}
-          style={styles.touchable}>
-          <Text
-            style={[
-              styles.categoryText,
-              activeCategoryId === item.id && styles.activeCategoryText,
-            ]}>
-            {item.name}
-          </Text>
-          {activeCategoryId === item.id ? (
-            <View style={styles.circle} />
-          ) : (
-            <></>
-          )}
-        </TouchableOpacity>
-      )}
-    />
+    isLargeScreen ? (
+      <FlatList
+        ref={flatListRef}
+        showsHorizontalScrollIndicator={false}
+        horizontal={isLargeScreen ? false : true}
+        data={categories}
+        keyExtractor={(item) => item.id}
+        contentContainerStyle={styles.contentContainer}
+        renderItem={({ item }) => (
+          <TouchableOpacity
+            onPress={() => handleCategoryChange(item.id)}
+            style={styles.touchable}>
+            <Text
+              style={[
+                styles.categoryText,
+                activeCategoryId === item.id && styles.activeCategoryText,
+              ]}>
+              {item.name}
+            </Text>
+            {activeCategoryId === item.id ? (
+              <View style={styles.circle} />
+            ) : (
+              <></>
+            )}
+          </TouchableOpacity>
+        )}
+      />) : (
+      <Animatable.View
+      animation="fadeIn"
+      useNativeDriver
+      onAnimationEnd={() => {
+        flatListRef.current.scrollToEnd();
+        setTimeout(() => {
+          flatListRef.current.scrollToIndex({ index: firstIndex });
+        }, 1000);
+      }}
+>
+      <FlatList
+        ref={flatListRef}
+        showsHorizontalScrollIndicator={false}
+        horizontal={isLargeScreen ? false : true}
+        data={categories}
+        keyExtractor={(item) => item.id}
+        contentContainerStyle={styles.contentContainer}
+        renderItem={({ item }) => (
+          <TouchableOpacity
+            onPress={() => handleCategoryChange(item.id)}
+            style={styles.touchable}>
+            <Text
+              style={[
+                styles.categoryText,
+                activeCategoryId === item.id && styles.activeCategoryText,
+              ]}>
+              {item.name}
+            </Text>
+            {activeCategoryId === item.id ? (
+              <View style={styles.circle} />
+            ) : (
+              <></>
+            )}
+          </TouchableOpacity>
+        )}
+      />
+    </Animatable.View>
+    )
   );
 };
 

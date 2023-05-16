@@ -1,7 +1,6 @@
 import {
   Dimensions,
   ImageBackground,
-  Modal,
   SafeAreaView,
   ScrollView,
   StyleSheet,
@@ -9,15 +8,17 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import back from "../../../assets/icons/back.png";
 import close from "../../../assets/icons/close.png";
 import colors from "../../config/colors";
 import SPACING from "../../config/SPACING";
 import { BlurView } from "expo-blur";
 import { useRouter, useSearchParams } from "expo-router";
-import allProducts from "../../config/coffees";
 import { Image } from "react-native";
+import ImageModal from "../../components/ImageModal";
+import axios from "axios";
+import { API_URL } from "@env";
 
 const { height, width } = Dimensions.get("window");
 
@@ -25,7 +26,8 @@ const CoffeeDetails = ({ productId, onShowDetails }) => {
   const router = useRouter();
   const { id } = useSearchParams();
   const finalId = productId || id;
-  const product = allProducts[finalId - 1];
+
+  const [product, setProduct] = useState({});
 
   const sizes = ["S", "M", "L"];
 
@@ -33,6 +35,16 @@ const CoffeeDetails = ({ productId, onShowDetails }) => {
   const toggleModal = () => {
     setModalVisible(!modalVisible);
   };
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      const productResponse = await axios.get(`${API_URL}/products/${finalId}`);
+
+      setProduct(productResponse.data);
+    };
+
+    fetchProduct();
+  }, []);
 
   return (
     <View style={styles.layout}>
@@ -148,18 +160,7 @@ const CoffeeDetails = ({ productId, onShowDetails }) => {
         </SafeAreaView>
       )}
       {!isMediumScreen && !isLargeScreen && modalVisible && (
-        <View style={styles.modalContainer}>
-          <View style={styles.imageContainer}>
-            <Image source={product.image} style={styles.modalImage} />
-            <View style={styles.closeModalContainer}>
-              <TouchableOpacity
-                onPress={toggleModal}
-                style={styles.closeModalTouchable}>
-                <Image source={close} style={styles.closeModalImage} />
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
+        <ImageModal product={product} toggleModal={toggleModal} />
       )}
     </View>
   );
@@ -436,42 +437,6 @@ const styles = StyleSheet.create({
     ...(isLargeScreen && {
       fontSize: "1.6vw",
     }),
-  },
-  modalContainer: {
-    backgroundColor: "rgba(0,0,0,0.5)",
-    borderRadius: 20,
-    alignItems: "center",
-    justifyContent: "center",
-    flexDirection: "row",
-    position: "absolute",
-    width: "100%",
-    height: "100%",
-  },
-  modalImage: {
-    width: 300,
-    height: 300,
-    resizeMode: "cover",
-    borderRadius: SPACING * 2,
-  },
-  closeModalContainer: {
-    position: "absolute",
-    top: 16,
-    right: 16,
-    height: 28,
-    width: 28,
-    backgroundColor: colors.dark,
-    justifyContent: "center",
-    borderRadius: SPACING,
-  },
-  closeModalTouchable: {
-    height: "80%",
-    width: "80%",
-    padding: 2,
-    alignSelf: "center",
-  },
-  closeModalImage: {
-    height: "100%",
-    width: "100%",
   },
 });
 

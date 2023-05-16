@@ -1,14 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import {
   Image,
-  SafeAreaView,
   ScrollView,
-  Text,
   TouchableOpacity,
   View,
   StyleSheet,
   Dimensions,
   Platform,
+  Text,
 } from "react-native";
 import SPACING from "./config/SPACING";
 import SearchField from "./components/SearchField";
@@ -16,29 +15,33 @@ import Categories from "./components/Categories";
 import colors from "./config/colors";
 import Grid from "./components/Grid";
 import CoffeeDetails from "./details/[id]";
-import allProducts from "./config/coffees";
 import * as Animatable from "react-native-animatable";
 import { useDispatch, useSelector } from "react-redux";
 import { setActiveCategoryId } from "./states/categorySlice";
-
-const logo = require("../assets/logo.png");
+import axios from "axios";
+import { API_URL } from "@env";
+import logo from "../assets/logo.png";
+import { useRouter } from "expo-router";
 
 const HomeScreen = () => {
-  const [products, setProducts] = useState(allProducts);
+  const [products, setProducts] = useState([]);
+  const [allProducts, setAllProducts] = useState([]);
   const [input, setInput] = useState("");
   const [headerVisible, setHeaderVisible] = useState(true);
   const [previousOffset, setPreviousOffset] = useState(0);
   const [showCoffeDetails, setShowCoffeeDetails] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [secret, setSecret] = useState(null);
 
   const dispatch = useDispatch();
+
   const activeCategoryId = useSelector(
     (state) => state.category.activeCategoryId
   );
 
-  const handleCategoryChange = (categoryId) => {
-    dispatch(setActiveCategoryId(categoryId));
-  };
+  const user = useSelector((state) => state.user);
+
+  const router = useRouter();
 
   const scrollViewRef = useRef(null);
 
@@ -56,15 +59,15 @@ const HomeScreen = () => {
     }
   };
 
-  const handleLogoPress = () => {
-    handleCategoryChange(null);
-    setInput("");
-  };
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const productsResponse = await axios.get(`${API_URL}/products`);
 
-  const handleShowCoffeDetails = (productId) => {
-    setShowCoffeeDetails((prevState) => !prevState);
-    setSelectedProduct(productId);
-  };
+      setProducts(productsResponse.data);
+      setAllProducts(productsResponse.data);
+    };
+    fetchProducts();
+  }, []);
 
   useEffect(() => {
     if (activeCategoryId !== null) {
@@ -83,9 +86,38 @@ const HomeScreen = () => {
     }
   }, [activeCategoryId]);
 
+  useEffect(() => {
+    user !== null ? setSecret("/admin") : setSecret("/login");
+  }, [user]);
+
+  const handleLogoPress = () => {
+    handleCategoryChange(null);
+    setInput("");
+  };
+
+  const handleCategoryChange = (categoryId) => {
+    dispatch(setActiveCategoryId(categoryId));
+  };
+
+  const handleShowCoffeDetails = (productId) => {
+    setShowCoffeeDetails((prevState) => !prevState);
+    setSelectedProduct(productId);
+  };
+
   return (
     <>
       <View style={styles.layout}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => {
+            const storedUser = localStorage.getItem("user");
+            if (storedUser) {
+              router.push(`/admin`);
+            } else {
+              router.push("/login");
+            }
+          }}
+        />
         <Animatable.View
           style={[styles.header]}
           animation={
@@ -203,6 +235,13 @@ const styles = StyleSheet.create({
     ...(isMediumScreen && {
       marginLeft: 250,
     }),
+  },
+  button: {
+    height: SPACING * 3,
+    width: SPACING * 3,
+    backgroundColor: colors.dark,
+    position: "absolute",
+    zIndex: 11,
   },
 });
 
