@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const products_controller = require("../controllers/productsController.js");
-const { validateAuth, validateAdmin } = require("../utils/auth.js");
 
 // C
 // Create product: /api/products/create

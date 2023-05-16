@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const categories_controller = require("../controllers/categoriesController.js");
-const { validateAuth, validateAdmin } = require("../utils/auth.js");
 
 // C
 // Create category: /api/categories/create
