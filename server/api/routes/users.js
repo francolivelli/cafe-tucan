@@ -15,16 +15,14 @@ router.post("/signout", users_controller.signOut);
 // Get all users: /api/users
 router.get("/", users_controller.getUsers);
 // Get specific user: /api/users/:id
-router.get("/:id", users_controller.getUser);
-// Get me: /api/users/me
-router.get("/me", validateAuth, users_controller.getPersistence);
+// router.get("/:id", users_controller.getUser);
 
 // U
 // Edit user: /api/users/edit/:id
-router.put("/edit/:id", users_controller.editUser);
+router.put("/edit/:id", validateAuth, users_controller.editUser);
 
 // D
 // Delete user: /api/users/delete/:id
-router.delete("/delete/:id", users_controller.deleteUser);
+router.delete("/delete/:id", validateAuth, users_controller.deleteUser);
 
 module.exports = router;

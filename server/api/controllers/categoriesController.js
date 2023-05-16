@@ -3,9 +3,11 @@ const categories_service = require("../services/categoriesService.js");
 // C
 // Create category: /api/categories/create
 exports.createCategory = async (req, res) => {
-  const category = req.body;
   try {
-    const createdCategory = await categories_service.createCategory(category);
+    const { name } = req.body;
+
+    const createdCategory = await categories_service.createCategory({ name });
+
     res.status(201).send(createdCategory);
   } catch (error) {
     console.error("Error", error);
@@ -24,26 +26,15 @@ exports.getCategories = async (req, res) => {
 };
 // Get specific category: /api/categories/:id
 exports.getCategory = async (req, res) => {
+  try {
     const id = req.params.id;
-    try {
-      const category = await categories_service.getCategory(id);
-      res.status(200).send(category);
-    } catch (error) {
-      console.error("Error", error);
-    }
-  };
 
-// U
-// Edit category: /api/categories/edit/:id
-exports.editCategory = (req, res) => {
-  const id = req.params.id;
-  const changes = req.body;
-  categories_service
-    .editCategory(changes, id)
-    .then((editedCategory) => res.status(200).send(editedCategory))
-    .catch(next);
+    const category = await categories_service.getCategory(id);
+    res.status(200).send(category);
+  } catch (error) {
+    console.error("Error", error);
+  }
 };
-
 
 // U
 // Edit category: /api/categories/edit/:id
@@ -61,11 +52,13 @@ exports.editCategory = async (req, res) => {
 // D
 // Delete category: /api/categories/delete/:id
 exports.deleteCategory = async (req, res) => {
+  try {
     const id = req.params.id;
-    try{
-      await categories_service.deleteCategory(id)
-      res.status(204).send("Category deleted")
-    }catch(error){
-      console.error("Error", error);
-    }
-  };
+
+   await Category.destroy({ where: { id } });
+
+    res.status(204).send("Category deleted");
+  } catch (error) {
+    console.error("Error", error);
+  }
+};

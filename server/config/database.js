@@ -3,14 +3,20 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 module.exports = {
-  username: process.env.DB_USERNAME || null,
-  password: process.env.DB_PASSWORD || null,
-  database: process.env.DB_DATABASE || "cafetucan",
-  host: process.env.DB_HOST || "localhost",
-  dialect: process.env.DB_DIALECT || "postgres",
-  logging: process.env.DB_LOGGING || false,
+  dialect: "postgres",
+  host: process.env.DB_HOST,
+  database: process.env.DB_DATABASE,
+  username: process.env.DB_USERNAME,
+  password: process.env.DB_PASSWORD,
+  logging: false,
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false,
+    },
+  },
   define: {
     timestamps: false,
-    underscored: true
+    underscored: true,
   },
 };

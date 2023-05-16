@@ -9,18 +9,26 @@ Product.init(
       type: Sequelize.STRING,
       allowNull: false,
     },
-    description: {
-      type: Sequelize.TEXT,
+    image: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
+    size: {
+      type: Sequelize.STRING,
       allowNull: true,
     },
     price: {
       type: Sequelize.FLOAT,
       allowNull: false,
     },
-    image: {
+    description: {
       type: Sequelize.TEXT,
-      allowNull: true
-    }
+      allowNull: false,
+    },
+    shortDescription: {
+      type: Sequelize.TEXT,
+      allowNull: true,
+    },
   },
   {
     sequelize: db,

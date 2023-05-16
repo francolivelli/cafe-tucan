@@ -14,53 +14,21 @@ class User extends Sequelize.Model {
 
 User.init(
   {
-    name: {
-      type: Sequelize.STRING,
-      allowNull: false,
-      validate: {
-        notNull: { msg: "Field cannot be empty." },
-        isAlpha: {
-          args: true,
-          msg: "Name can only contain letters.",
-        },
-        len: {
-          args: [2,255],
-          msg: "Name must be at least two letters long."
-        }
-      },
-    },
-    surname: {
-      type: Sequelize.STRING,
-      allowNull: false,
-      validate: {
-        notNull: { msg: "Field cannot be empty." },
-        isAlpha: {
-          args: true,
-          msg: "Surname can only contain letters.",
-        },
-      },
-    },
     email: {
       type: Sequelize.STRING,
       allowNull: false,
-      validate: {
-        isEmail: {
-          args: true,
-          msg: "Field must be filled with a valid email.",
-        },
-      },
       unique: true,
     },
     password: {
       type: Sequelize.STRING,
       allowNull: false,
     },
-    salt: {
-      type: Sequelize.STRING,
-    },
     isAdmin: {
       type: Sequelize.BOOLEAN,
       defaultValue: false,
+    },
+    salt: {
+      type: Sequelize.STRING,
     },
   },
   {

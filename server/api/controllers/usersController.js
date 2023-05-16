@@ -14,11 +14,23 @@ exports.signUp = async (req, res) => {
 };
 // Login: /api/users/signin
 exports.signIn = async (req, res) => {
-  const loginInfo = req.body;
   try {
-    const payload = await users_service.signIn(loginInfo);
+    const { email, password } = req.body;
+
+    const payload = await users_service.signIn({ email, password });
+
     const token = generateToken(payload);
-    res.cookie("auth", token);
+
+    const cookieOptions = {
+      expires: new Date(Date.now() + 6 * 60 * 60 * 1000), // Establece la fecha de caducidad a 6 horas a partir de la fecha actual
+      httpOnly: true, // Establece la cookie como HTTP only para evitar ataques XSS
+      sameSite: "strict", // Establece el atributo SameSite para prevenir ataques CSRF
+    };
+
+    payload.password = undefined;
+    payload.salt = undefined;
+
+    res.cookie("auth", token, cookieOptions);
     res.status(201).send(payload);
   } catch (error) {
     console.error("Error", error);
@@ -28,7 +40,7 @@ exports.signIn = async (req, res) => {
 exports.signOut = async (req, res) => {
   res.clearCookie("auth");
   res.sendStatus(204);
-}
+};
 
 // R
 // Get all users: /api/users
@@ -41,24 +53,15 @@ exports.getUsers = async (req, res) => {
   }
 };
 // Get specific user: /api/users/:id
-exports.getUser = async (req, res) => {
-  const id = req.params.id;
-  try {
-    const user = await users_service.getUser(id);
-    res.status(200).send(user);
-  } catch (error) {
-    console.error("Error", error);
-  }
-};
-// Get me: /api/users/me
-exports.getPersistence = (req, res) => {
-  const user = req.user;
-  try {
-    res.status(200).send(user);
-  } catch (error) {
-    console.error("Error", error);
-  }
-};
+// exports.getUser = async (req, res) => {
+//   const id = req.params.id;
+//   try {
+//     const user = await users_service.getUser(id);
+//     res.status(200).send(user);
+//   } catch (error) {
+//     console.error("Error", error);
+//   }
+// };
 
 // U
 // Edit user: /api/users/edit/:id

@@ -9,10 +9,6 @@ Category.init(
       type: Sequelize.STRING,
       allowNull: false,
     },
-    icon: {
-      type: Sequelize.STRING,
-      allowNull: false,
-    },
   },
   {
     sequelize: db,
