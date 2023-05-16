@@ -5,12 +5,7 @@ const { validateAuth, validateAdmin } = require("../utils/auth.js");
 
 // C
 // Create category: /api/categories/create
-router.post(
-  "/create",
-  validateAuth,
-  validateAdmin,
-  categories_controller.createCategory
-);
+router.post("/create", categories_controller.createCategory);
 
 // R
 // Get all categories: /api/categories
@@ -20,20 +15,10 @@ router.get("/:id", categories_controller.getCategory);
 
 // U
 // Edit category: /api/categories/edit/:id
-router.put(
-  "/edit/:id",
-  validateAuth,
-  validateAdmin,
-  categories_controller.editCategory
-);
+router.put("/edit/:id", categories_controller.editCategory);
 
 // D
 // Delete category: /api/categories/delete/:id
-router.delete(
-  "/delete/:id",
-  validateAuth,
-  validateAdmin,
-  categories_controller.deleteCategory
-);
+router.delete("/delete/:id", categories_controller.deleteCategory);
 
 module.exports = router;

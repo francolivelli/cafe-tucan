@@ -6,7 +6,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: "https://cafe-tucan-server.vercel.app",
+    origin: "https://cafe-tucan.vercel.app",
     credentials: true,
   })
 );
