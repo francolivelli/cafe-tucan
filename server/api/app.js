@@ -6,7 +6,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: "http://localhost:19000",
+    origin: "https://cafe-tucan-server.vercel.app",
     credentials: true,
   })
 );
