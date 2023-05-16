@@ -15,7 +15,6 @@ import back from "../../assets/icons/back.png";
 import save from "../../assets/icons/save.png";
 import SPACING from "../config/SPACING";
 import { usePathname, useRouter } from "expo-router";
-import { ScrollView } from "react-native-gesture-handler";
 import { API_URL } from "@env";
 import axios from "axios";
 import ConfirmSavingModal from "./ConfirmSavingModal";
