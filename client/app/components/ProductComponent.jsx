@@ -18,7 +18,6 @@ import coffee from "../../assets/icons/coffee.png";
 import SPACING from "../config/SPACING";
 import { usePathname, useRouter } from "expo-router";
 import { ScrollView } from "react-native-gesture-handler";
-import { API_URL } from "@env";
 import axios from "axios";
 import ConfirmSavingModal from "./ConfirmSavingModal";
 
@@ -41,15 +40,15 @@ const ProductComponent = ({ id }) => {
 
   useEffect(() => {
     const fetchCategories = async () => {
-      const categoriesResponse = await axios.get(`${API_URL}/categories`);
+      const categoriesResponse = await axios.get(`https://cafe-tucan-server.vercel.app/api/categories`);
       setCategories(categoriesResponse.data);
     };
 
     const fetchProduct = async (id) => {
-      const productResponse = await axios.get(`${API_URL}/products/${id}`);
+      const productResponse = await axios.get(`https://cafe-tucan-server.vercel.app/api/products/${id}`);
 
       const categoryResponse = await axios.get(
-        `${API_URL}/categories/${productResponse.data.categoryId}`
+        `https://cafe-tucan-server.vercel.app/api/categories/${productResponse.data.categoryId}`
       );
 
       setName(productResponse.data.name);
@@ -79,7 +78,7 @@ const ProductComponent = ({ id }) => {
         description,
       };
       if (pathname.includes("create")) {
-        const response = await axios.post(`${API_URL}/products/create`, data, {
+        const response = await axios.post(`https://cafe-tucan-server.vercel.app/api/products/create`, data, {
           withCredentials: true,
         });
         if (response) {
@@ -96,7 +95,7 @@ const ProductComponent = ({ id }) => {
         }
       } else {
         const response = await axios.put(
-          `${API_URL}/products/edit/${id}`,
+          `https://cafe-tucan-server.vercel.app/api/products/edit/${id}`,
           data,
           { withCredentials: true }
         );

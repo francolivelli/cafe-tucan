@@ -31,7 +31,7 @@ const Categories = () => {
 
   useEffect(() => {
     const fetchCategories = async () => {
-      const categoriesResponse = await axios.get(`${API_URL}/categories`);
+      const categoriesResponse = await axios.get(`https://cafe-tucan-server.vercel.app/api/categories`);
       setCategories(categoriesResponse.data);
     };
   

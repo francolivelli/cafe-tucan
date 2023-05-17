@@ -13,7 +13,6 @@ import SPACING from "../config/SPACING";
 import check from "../../assets/icons/check.png";
 import close from "../../assets/icons/close.png";
 import { usePathname } from "expo-router";
-import { API_URL } from "@env";
 import axios from "axios";
 
 const ConfirmDeleteModal = ({ toggleModal, item, onDelete }) => {
@@ -21,13 +20,13 @@ const ConfirmDeleteModal = ({ toggleModal, item, onDelete }) => {
 
   const handleDelete = async () => {
     if (pathname.includes("products")) {
-      axios.delete(`${API_URL}/products/delete/${item.id}`, {
+      axios.delete(`https://cafe-tucan-server.vercel.app/api/products/delete/${item.id}`, {
         withCredentials: true,
       });
       onDelete();
       toggleModal();
     } else if (pathname.includes("categories")) {
-      axios.delete(`${API_URL}/categories/delete/${item.id}`, {
+      axios.delete(`https://cafe-tucan-server.vercel.app/api/categories/delete/${item.id}`, {
         withCredentials: true,
       });
       onDelete();

@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { API_URL } from "@env";
 
 export const userSlice = createSlice({
   name: "user",
@@ -27,7 +26,7 @@ export const loginAsync =
     try {
       dispatch(setUser(null));
       const response = await axios.post(
-        `${API_URL}/users/signin`,
+        `https://cafe-tucan-server.vercel.app/api/users/signin`,
         {
           email,
           password,
@@ -46,7 +45,7 @@ export const loginAsync =
 
 export const logoutAsync = () => async (dispatch) => {
   try {
-    await axios.post(`${API_URL}/users/signout`);
+    await axios.post(`https://cafe-tucan-server.vercel.app/api/users/signout`);
 
     dispatch(clearUser());
   } catch (error) {

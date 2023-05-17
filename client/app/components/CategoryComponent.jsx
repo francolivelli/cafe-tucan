@@ -15,7 +15,6 @@ import back from "../../assets/icons/back.png";
 import save from "../../assets/icons/save.png";
 import SPACING from "../config/SPACING";
 import { usePathname, useRouter } from "expo-router";
-import { API_URL } from "@env";
 import axios from "axios";
 import ConfirmSavingModal from "./ConfirmSavingModal";
 
@@ -28,7 +27,7 @@ const CategoryComponent = ({ id }) => {
 
   useEffect(() => {
     const fetchCategory = async () => {
-      const categoryResponse = await axios.get(`${API_URL}/categories/${id}`);
+      const categoryResponse = await axios.get(`https://cafe-tucan-server.vercel.app/api/categories/${id}`);
       setName(categoryResponse.data.name);
     };
 
@@ -39,7 +38,7 @@ const CategoryComponent = ({ id }) => {
     try {
       if (pathname.includes("create")) {
         const response = await axios.post(
-          `${API_URL}/categories/create`,
+          `https://cafe-tucan-server.vercel.app/api/categories/create`,
           { name },
           { withCredentials: true }
         );
@@ -49,7 +48,7 @@ const CategoryComponent = ({ id }) => {
         }
       } else {
         const response = await axios.put(
-          `${API_URL}/categories/edit/${id}`,
+          `https://cafe-tucan-server.vercel.app/api/categories/edit/${id}`,
           {
             name,
           },

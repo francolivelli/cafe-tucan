@@ -18,7 +18,6 @@ import add from "../../assets/icons/add.png";
 import back from "../../assets/icons/back.png";
 import { ScrollView } from "react-native-gesture-handler";
 import ConfirmDeleteModal from "./ConfirmDeleteModal";
-import { API_URL } from "@env";
 import axios from "axios";
 
 const List = () => {
@@ -33,7 +32,7 @@ const List = () => {
   useEffect(() => {
     if (pathname.includes("products")) {
       const fetchProducts = async () => {
-        const productsResponse = await axios.get(`${API_URL}/products`);
+        const productsResponse = await axios.get(`https://cafe-tucan-server.vercel.app/api/products`);
 
         setTitle("Productos");
         setElements(productsResponse.data);
@@ -41,7 +40,7 @@ const List = () => {
       fetchProducts();
     } else if (pathname.includes("categories")) {
       const fetchProducts = async () => {
-        const categoriesResponse = await axios.get(`${API_URL}/categories`);
+        const categoriesResponse = await axios.get(`https://cafe-tucan-server.vercel.app/api/categories`);
 
         setTitle("Categorías");
         setElements(categoriesResponse.data);

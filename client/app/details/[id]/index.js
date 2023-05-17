@@ -18,7 +18,6 @@ import { useRouter, useSearchParams } from "expo-router";
 import { Image } from "react-native";
 import ImageModal from "../../components/ImageModal";
 import axios from "axios";
-import { API_URL } from "@env";
 
 const { height, width } = Dimensions.get("window");
 
@@ -38,7 +37,7 @@ const CoffeeDetails = ({ productId, onShowDetails }) => {
 
   useEffect(() => {
     const fetchProduct = async () => {
-      const productResponse = await axios.get(`${API_URL}/products/${finalId}`);
+      const productResponse = await axios.get(`https://cafe-tucan-server.vercel.app/api/products/${finalId}`);
 
       setProduct(productResponse.data);
     };

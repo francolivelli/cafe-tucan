@@ -19,7 +19,6 @@ import * as Animatable from "react-native-animatable";
 import { useDispatch, useSelector } from "react-redux";
 import { setActiveCategoryId } from "./states/categorySlice";
 import axios from "axios";
-import { API_URL } from "@env";
 import logo from "../assets/logo.png";
 import { useRouter } from "expo-router";
 
@@ -61,7 +60,7 @@ const HomeScreen = () => {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const productsResponse = await axios.get(`${API_URL}/products`);
+      const productsResponse = await axios.get(`https://cafe-tucan-server.vercel.app/api/products`);
 
       setProducts(productsResponse.data);
       setAllProducts(productsResponse.data);
