@@ -29,7 +29,6 @@ exports.getCategory = async (id) => {
 // U
 // Edit category: /api/categories/edit/:id
 exports.editCategory = async (changes, id) => {
-  const { name } = changes;
   let editedCategory = await Category.update(changes, {
     where: { id },
   });
